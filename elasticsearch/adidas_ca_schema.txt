@@ -1,0 +1,143 @@
+PUT /adidas_ca_items_2
+{
+  "mappings": {
+    "properties": {
+      "availability_kwargs": {
+        "properties": {
+          "availability_status": {
+            "type": "keyword"
+          },
+          "available_sizes": {
+            "type": "keyword"
+          },
+          "sku": {
+            "type": "keyword"
+          },
+          "stock": {
+            "type": "keyword"
+          }
+        }
+      },
+      "item_page_kwargs": {
+        "properties": {
+          "absolute_discount": {
+            "type": "float"
+          },
+          "availability_url": {
+            "type": "keyword"
+          },
+          "category_tags": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "colour": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "description": {
+            "type": "text"
+          },
+          "img_url": {
+            "type": "keyword"
+          },
+          "item_key": {
+            "type": "keyword"
+          },
+          "num_rating": {
+            "type": "long"
+          },
+          "on_sale": {
+            "type": "boolean"
+          },
+          "original_price": {
+            "type": "float"
+          },
+          "rating": {
+            "type": "float"
+          },
+          "sale_percentage": {
+            "type": "float"
+          },
+          "sale_price": {
+            "type": "float"
+          },
+          "sub_title": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "main_parse_kwargs": {
+        "properties": {
+          "brand": {
+            "type": "keyword"
+          },
+          "domain": {
+            "type": "keyword"
+          },
+          "item_sub_brand": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "item_title": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "item_type": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "main_img_url": {
+            "type": "keyword"
+          },
+          "main_item_key": {
+            "type": "keyword"
+          },
+          "main_item_url": {
+            "type": "keyword"
+          },
+          "main_variation": {
+            "type": "keyword"
+          },
+          "scrape_time": {
+            "type": "date"
+          },
+          "sibling_variations": {
+            "type": "keyword"
+          },
+          "source_page": {
+            "type": "keyword"
+          },
+          "variation_url": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+# For adidas need to figure out how to get proper item type (e.g. shirt)
+# Note: it would be better to use a term query on the field.keyword in the filters clause but will have to be absolutely certain that the fields match exactly: eg. "Adidas" should not be used when the indexed value is "adidas".
+# absolute_discount field has to be added to data and then to the filtered queries below as a range query.
+# Sort should be either _score/sale_price/sale%/absolute_sale.
+
+# mapping
+# fields that should not be analysed:
+- availability_kwargs.sku and availability_kwargs.stock
+- all urls
+
+GET /adidas_ca_items/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "multi_match": {
+            "query": "adidas",
+            "fields": [
+              "main_parse_kwargs.brand",
+              "main_parse_kwargs.item_sub_brand",
+              "main_parse_kwargs.item_type",
+              "main_parse_kwargs.item_title",
+              "item_page_kwargs.category_tags",
+              "item_page_kwargs.colour"
+            ],
+            "operator": "OR"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "match": {
+            "main_parse_kwargs.brand": "adidas"
+          }
+        },
+        {
+          "match": {
+            "main_parse_kwargs.item_type": "clothing"
+          }
+        },
+        {
+          "wildcard": {
+            "item_page_kwargs.colour": "*"
+          }
+        },
+        {
+          "match": {
+            "availability_kwargs.available_sizes": "XS"
+          }
+        },
+        {
+          "match": {
+            "main_parse_kwargs.domain.keyword": "www.adidas.ca"
+          }
+        },
+        {
+          "range": {
+            "item_page_kwargs.sale_price": {
+              "gte": "0",
+              "lte": "50"
+            }
+          }
+        },
+        {
+          "range": {
+            "item_page_kwargs.sale_percentage": {
+              "gte": ".25"
+            }
+          }
+        }
+      ],
+      "should": [
+        {
+          "multi_match": {
+            "query": "short",
+            "fields": [
+              "item_page_kwargs.description",
+              "item_page_kwargs.sub_title"
+            ],
+            "operator": "OR"
+          }
+        }
+      ]
+    }
+  },
+  "sort": {
+    "item_page_kwargs.sale_percentage" : "asc"
+  },
+  "_source": ["item_page_kwargs.sale_percentage"]
+}
