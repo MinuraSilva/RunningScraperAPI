@@ -1,19 +1,79 @@
 PUT /adidas_ca_items_2
 {
+  "settings": {
+     "analysis": {
+       "normalizer": {
+         "lowercase": {
+           "type": "custom",
+           "filter": [ "lowercase" ]
+         }
+       }
+     }
+   },
   "mappings": {
     "properties": {
-      "availability_kwargs": {
+      "main_parse_kwargs": {
         "properties": {
-          "availability_status": {
+          "brand": {
+            "type": "keyword",
+            "normalizer":"lowercase"
+          },
+          "domain": {
+            "type": "keyword",
+            "normalizer":"lowercase"
+          },
+          "item_sub_brand": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "normalizer":"lowercase"
+              }
+            }
+          },
+          "item_title": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "normalizer":"lowercase"
+              }
+            }
+          },
+          "item_type": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "normalizer":"lowercase"
+              }
+            }
+          },
+          "main_img_url": {
             "type": "keyword"
           },
-          "available_sizes": {
+          "main_item_key": {
+            "type": "keyword",
+            "normalizer":"lowercase"
+          },
+          "main_item_url": {
             "type": "keyword"
           },
-          "sku": {
+          "main_variation": {
+            "type": "keyword",
+            "normalizer":"lowercase"
+          },
+          "scrape_time": {
+            "type": "date"
+          },
+          "sibling_variations": {
+            "type": "keyword",
+            "normalizer":"lowercase"
+          },
+          "source_page": {
             "type": "keyword"
           },
-          "stock": {
+          "variation_url": {
             "type": "keyword"
           }
         }
@@ -31,6 +91,7 @@ PUT /adidas_ca_items_2
             "fields": {
               "keyword": {
                 "type": "keyword",
+                "normalizer":"lowercase",
                 "ignore_above": 256
               }
             }
@@ -39,7 +100,8 @@ PUT /adidas_ca_items_2
             "type": "text",
             "fields": {
               "keyword": {
-                "type": "keyword"
+                "type": "keyword",
+                "normalizer":"lowercase"
               }
             }
           },
@@ -50,7 +112,8 @@ PUT /adidas_ca_items_2
             "type": "keyword"
           },
           "item_key": {
-            "type": "keyword"
+            "type": "keyword",
+            "normalizer":"lowercase"
           },
           "num_rating": {
             "type": "long"
@@ -74,66 +137,27 @@ PUT /adidas_ca_items_2
             "type": "text",
             "fields": {
               "keyword": {
-                "type": "keyword"
+                "type": "keyword",
+                "normalizer":"lowercase"
               }
             }
           }
         }
       },
-      "main_parse_kwargs": {
+      "availability_kwargs": {
         "properties": {
-          "brand": {
+          "availability_status": {
+            "type": "keyword",
+            "normalizer":"lowercase"
+          },
+          "available_sizes": {
+            "type": "keyword",
+            "normalizer":"lowercase"
+          },
+          "sku": {
             "type": "keyword"
           },
-          "domain": {
-            "type": "keyword"
-          },
-          "item_sub_brand": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword"
-              }
-            }
-          },
-          "item_title": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword"
-              }
-            }
-          },
-          "item_type": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword"
-              }
-            }
-          },
-          "main_img_url": {
-            "type": "keyword"
-          },
-          "main_item_key": {
-            "type": "keyword"
-          },
-          "main_item_url": {
-            "type": "keyword"
-          },
-          "main_variation": {
-            "type": "keyword"
-          },
-          "scrape_time": {
-            "type": "date"
-          },
-          "sibling_variations": {
-            "type": "keyword"
-          },
-          "source_page": {
-            "type": "keyword"
-          },
-          "variation_url": {
+          "stock": {
             "type": "keyword"
           }
         }
