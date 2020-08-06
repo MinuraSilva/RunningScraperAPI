@@ -1,5 +1,6 @@
 # The term 'datatypes' is used loosely here. Simply implies that these functions may be passed
 # into the 'type' parameter of reqparse.RequestParser.add_argument
+# Same as the format used here: flask_restx.inputs
 
 # dealing with custom datatypes: https://github.com/noirbizarre/flask-restplus/issues/124
 
