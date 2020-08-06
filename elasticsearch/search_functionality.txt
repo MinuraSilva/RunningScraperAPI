@@ -1,0 +1,18 @@
+Search:
+
+Search box:
+Use a multi-match and fuzzy query on a set of fields like item name, colour, brand, sub brand, etc. Use minimum_should_match to set the minimum score for items that should be returned.
+
+Check-boxes (filters):
+- Brand
+- type (e.g. shirt, shoe, etc.)
+- Size (include gender + size for shoe or clothing)
+- Colour
+- Store (e.g. adidas, MEC, etc.)
+
+Range (filter)
+- price
+- discount %
+- absolute discount
+
+Sort (specify field e.g. price, sale %, absolute sale, relevance (_score))
