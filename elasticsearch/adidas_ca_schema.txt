@@ -12,7 +12,7 @@ PUT /adidas_ca_items_2
    },
   "mappings": {
     "properties": {
-      "main_parse_kwargs": {
+      "search_page": {
         "properties": {
           "brand": {
             "type": "keyword",
@@ -52,10 +52,6 @@ PUT /adidas_ca_items_2
           "main_img_url": {
             "type": "keyword"
           },
-          "main_item_key": {
-            "type": "keyword",
-            "normalizer":"lowercase"
-          },
           "main_item_url": {
             "type": "keyword"
           },
@@ -78,7 +74,7 @@ PUT /adidas_ca_items_2
           }
         }
       },
-      "item_page_kwargs": {
+      "item_page": {
         "properties": {
           "absolute_discount": {
             "type": "float"
@@ -111,7 +107,7 @@ PUT /adidas_ca_items_2
           "img_url": {
             "type": "keyword"
           },
-          "item_key": {
+          "item_variation": {
             "type": "keyword",
             "normalizer":"lowercase"
           },
@@ -144,7 +140,7 @@ PUT /adidas_ca_items_2
           }
         }
       },
-      "availability_kwargs": {
+      "availability_page": {
         "properties": {
           "availability_status": {
             "type": "keyword",
