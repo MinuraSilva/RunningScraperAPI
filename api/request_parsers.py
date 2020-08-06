@@ -2,6 +2,7 @@ from flask_restx import reqparse
 from api.enum_options import brand_options, item_type_options, size_options, colour_options, store_options, \
     sort_by_options
 from api.parser_custom_datatypes import splitter, dollar_value, percentage_value
+from flask_restx.inputs import boolean
 
 search_parser = reqparse.RequestParser()
 search_parser.add_argument('search_string', type=str,
@@ -34,11 +35,20 @@ search_parser.add_argument('perc_dicount_gte', type=percentage_value,
 search_parser.add_argument('perc_dicount_lte', type=percentage_value,
                            help="Maximum percentage discount as decimal", default=None, required=False)
 
+search_parser.add_argument('equivalent_other_geneder_size',
+                           type=boolean,
+                           help="Whether to search for equivalent sizes for other gender "
+                                "(size conversion done automatically)",
+                           default=False,
+                           required=False)
+
 search_parser.add_argument('sort_by',
                            choices=sort_by_options,
                            help="Sort results. _score is to sort by elasticsearch relevance",
                            default="_score",
                            required=False)
+
+
 
 # Alternate method for dealing with enums that can accept a list (e.g. for brand)
 # Difference is that multiple queries have to made instead of passing it in as a list
