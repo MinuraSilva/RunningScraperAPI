@@ -4,6 +4,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 
 from elasticsearch import Elasticsearch
 
+import api.settings as settings
 from api.request_parser.request_parsers import search_parser
 from api.es_query_builder.search import run_query
 
@@ -14,9 +15,9 @@ api = Api(app, version='1.0', title='RunningSalesAPI', description='Search the r
 search_api = api.namespace('search', description='Search Running Sales')
 
 # elasticsearch  connection
-client = Elasticsearch(["localhost"],
-                       port=9200,
-                       maxsize=25)
+client = Elasticsearch(settings.es_hosts,
+                       port=settings.es_port,
+                       maxsize=settings.es_max_connections)
 
 
 @search_api.route('/')
@@ -29,7 +30,11 @@ class SearchParameters(Resource):
         sort_by = args["sort_by"]
 
         try:
-            results = run_query(client, args, sort_by, page_number, page_items=40)
+            results = run_query(client,
+                                args,
+                                sort_by,
+                                page_items=settings.num_results_per_page,
+                                page_no=page_number)
         except Exception as e:
             results = {"exception during search": e}
 

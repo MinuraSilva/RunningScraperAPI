@@ -2,10 +2,11 @@ from math import floor
 
 from elasticsearch_dsl import Search
 
+import api.settings as settings
 from .build_query import query_builder
 
 
-def run_query(es_connection, query_args, sort_by, page_no=0, page_items=40):
+def run_query(es_connection, query_args, sort_by, page_items, page_no=0):
     # ES query must be built using the 'Q' shortcut from elasticsearch_dsl or be otherwise compatible and have a query
     # method that can be called
 
@@ -16,7 +17,7 @@ def run_query(es_connection, query_args, sort_by, page_no=0, page_items=40):
 
     sort_by = sort_fieldname(sort_by)
 
-    search = Search(using=es_connection, index="adidas_ca_items_2")[start:end]
+    search = Search(using=es_connection, index=settings.es_index_name)[start:end]
     response = search.query(es_query).sort(sort_by).execute()
     total_num_results = response.hits.total.value
 
@@ -25,11 +26,13 @@ def run_query(es_connection, query_args, sort_by, page_no=0, page_items=40):
     if (page_no > last_page) and page_no > 0:
         results = {"error": f"The requested page '{page_no}' exceeds the last page of results. "
                             f"Please try a number less than or equal to '{last_page}'",
+                   "requested_page": page_no,
                    "total_results": total_num_results,
                    "last_page": last_page}
     else:
         results = extract_results(response)
         results = {"total_results": total_num_results,
+                   "requested_page": page_no,
                    "last_page": last_page,
                    "results": results}
 
