@@ -4,7 +4,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 
 from elasticsearch import Elasticsearch
 
-from api.request_parsers import search_parser
+from api.request_parser.request_parsers import search_parser
 from api.es_query_builder.search import run_query
 
 app = Flask(__name__)

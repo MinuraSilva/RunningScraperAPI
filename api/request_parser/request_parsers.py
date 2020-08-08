@@ -1,7 +1,7 @@
 from flask_restx import reqparse
-from api.enum_options import brand_options, item_type_options, size_options, colour_options, store_options, \
+from api.request_parser.enum_options import brand_options, size_options, colour_options, store_options, \
     sort_by_options
-from api.parser_custom_datatypes import splitter, dollar_value, percentage_value
+from api.request_parser.parser_custom_datatypes import splitter, dollar_value, percentage_value
 from flask_restx.inputs import boolean
 
 search_parser = reqparse.RequestParser()
