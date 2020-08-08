@@ -5,12 +5,17 @@ from api.parser_custom_datatypes import splitter, dollar_value, percentage_value
 from flask_restx.inputs import boolean
 
 search_parser = reqparse.RequestParser()
+
+search_parser.add_argument('page_number', type=int,
+                           help="Results page number", default=0, required=False)
+
 search_parser.add_argument('search_string', type=str,
                            help="String in search box", default=None, required=False)
 search_parser.add_argument('brand', type=splitter("brand", brand_options),
                            help="Comma delimited list of brands", default=None, required=False)
-search_parser.add_argument('item_type', type=splitter("item_type", item_type_options),
-                           help="Comma delimited list of item_type", default=None, required=False)
+# Turn item type into a choices once I figure out all of the item types
+search_parser.add_argument('item_type', type=str,
+                           help="Item_type", default=None, required=False)
 search_parser.add_argument('size', type=splitter("size", size_options),
                            help="Comma delimited list of size", default=None, required=False)
 search_parser.add_argument('colour', type=splitter("colour", colour_options),
@@ -35,7 +40,7 @@ search_parser.add_argument('perc_dicount_gte', type=percentage_value,
 search_parser.add_argument('perc_dicount_lte', type=percentage_value,
                            help="Maximum percentage discount as decimal", default=None, required=False)
 
-search_parser.add_argument('equivalent_other_geneder_size',
+search_parser.add_argument('equivalent_other_gender_shoe_size',
                            type=boolean,
                            help="Whether to search for equivalent sizes for other gender "
                                 "(size conversion done automatically)",

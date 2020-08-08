@@ -5,7 +5,7 @@
 
 # mapping
 # fields that should not be analysed:
-- availability_kwargs.sku and availability_kwargs.stock
+- availability_page.sku and availability_page.stock
 - all urls
 
 GET /adidas_ca_items/_search
@@ -17,12 +17,12 @@ GET /adidas_ca_items/_search
           "multi_match": {
             "query": "adidas",
             "fields": [
-              "main_parse_kwargs.brand",
-              "main_parse_kwargs.item_sub_brand",
-              "main_parse_kwargs.item_type",
-              "main_parse_kwargs.item_title",
-              "item_page_kwargs.category_tags",
-              "item_page_kwargs.colour"
+              "search_page.brand",
+              "search_page.item_sub_brand",
+              "search_page.item_type",
+              "search_page.item_title",
+              "item_page.category_tags",
+              "item_page.colour"
             ],
             "operator": "OR"
           }
@@ -31,32 +31,32 @@ GET /adidas_ca_items/_search
       "filter": [
         {
           "match": {
-            "main_parse_kwargs.brand": "adidas"
+            "search_page.brand": "adidas"
           }
         },
         {
           "match": {
-            "main_parse_kwargs.item_type": "clothing"
+            "search_page.item_type": "clothing"
           }
         },
         {
           "wildcard": {
-            "item_page_kwargs.colour": "*"
+            "item_page.colour": "*"
           }
         },
         {
           "match": {
-            "availability_kwargs.available_sizes": "XS"
+            "availability_page.available_sizes": "XS"
           }
         },
         {
           "match": {
-            "main_parse_kwargs.domain.keyword": "www.adidas.ca"
+            "search_page.domain.keyword": "www.adidas.ca"
           }
         },
         {
           "range": {
-            "item_page_kwargs.sale_price": {
+            "item_page.sale_price": {
               "gte": "0",
               "lte": "50"
             }
@@ -64,7 +64,7 @@ GET /adidas_ca_items/_search
         },
         {
           "range": {
-            "item_page_kwargs.sale_percentage": {
+            "item_page.sale_percentage": {
               "gte": ".25"
             }
           }
@@ -75,8 +75,8 @@ GET /adidas_ca_items/_search
           "multi_match": {
             "query": "short",
             "fields": [
-              "item_page_kwargs.description",
-              "item_page_kwargs.sub_title"
+              "item_page.description",
+              "item_page.sub_title"
             ],
             "operator": "OR"
           }
@@ -85,7 +85,7 @@ GET /adidas_ca_items/_search
     }
   },
   "sort": {
-    "item_page_kwargs.sale_percentage" : "asc"
+    "item_page.sale_percentage" : "asc"
   },
-  "_source": ["item_page_kwargs.sale_percentage"]
+  "_source": ["item_page.sale_percentage"]
 }
