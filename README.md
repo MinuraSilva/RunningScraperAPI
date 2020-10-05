@@ -7,4 +7,4 @@ Startpoint: `api\running_sales_api.py` <br>
 Requires python packages Flask Rest X and Elasticsearch DSL. Documentation not complete yet.
 
 # Swagger Screenshot
-![swagger page](RunningScraperApi Swagger Page.png)
+![swagger page](RunningScraperApiSwaggerPage.png)
